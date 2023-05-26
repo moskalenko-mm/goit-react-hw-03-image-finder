@@ -5,6 +5,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Loader from './Loader/Loader';
 import Modal from './Modal/Modal';
+import ErrorMessage from './ErrorMessage/ErrorMessage';
 import { Container } from './App.styled';
 
 class App extends Component {
@@ -84,10 +85,12 @@ class App extends Component {
       <Container>
         <Searchbar handleSubmit={this.handleSubmit} />
         {isLoading && <Loader />}
-        {isEmpty && <h2>We have no images for this request.</h2>}
+        {isEmpty && (
+          <ErrorMessage message="We have no images for this request." />
+        )}
         <ImageGallery photos={photos} openModal={this.openModal} />
         {showBtn && <Button handleLoadMore={this.handleLoadMore} />}
-        {error && <h2>{error.message} </h2>}
+        {error && <ErrorMessage message={error.message} />}
         {showModal && (
           <Modal
             imgAlt={imgAlt}
